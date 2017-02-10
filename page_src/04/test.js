@@ -46,7 +46,7 @@ function initDom3() {
     var buttonText = document.createTextNode("提交:");
     button.appendChild(buttonText);
     document.body.appendChild(button);
-    document.getElementById("submit").addEventListener("click", login);
+    document.getElementById("submit").addEventListener("click", login2);
 
 }
 
