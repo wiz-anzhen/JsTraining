@@ -1,7 +1,13 @@
 
 var counter = 0;
 function setTimer(intervalTime) {
+    if(counter > 3){
+            console.log("stop interval");
+            return;
+        }
+
     var timeout = setTimeout(function () {
+        
         console.log(new Date().valueOf());
         console.log('clear timeout');
         clearTimeout(timeout);
