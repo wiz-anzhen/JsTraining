@@ -1,0 +1,6 @@
+body{
+   background-size:3px;
+   background:url(background.png);
+   background-repeat:no-repeat;
+   padding-top:80px;
+}
