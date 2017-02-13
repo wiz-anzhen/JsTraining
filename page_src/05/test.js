@@ -3,41 +3,61 @@ var bizList;
 var groupList;
 var toDoList;
 
-function createBizDiv(bizGuid, bizName) {
-    var content = document.getElementById("content");
+function createBizDiv(biz) {
+    var bizGuid = biz.biz_guid;
+    var bizName = biz.biz_name
+    var content = document.getElementById("biz");
     var divBiz = document.createElement("div");
     divBiz.id = bizGuid;
     divBiz.style.margin = "20px";
-    var bizText = document.createTextNode("团队名称：" + bizName);
-    divBiz.appendChild(bizText);
+    divBiz.style.padding = "10px"
+    divBiz.appendChild(document.createTextNode("团队名称：" + bizName));
+    divBiz.appendChild(document.createTextNode("团队创建时间：" + new Date(parseInt(biz.dt_created)).toLocaleString()));
     content.appendChild(divBiz);
 }
 
-function appendKbDiv(bizGuid, kbName) {
-    console.log(kbName);
+function createGroupDiv(group) {
+    var kbName = group.kbName;
+    var kbGuid = group.kbGuid;
+    var content = document.getElementById("group");
+    var divKb = document.createElement("div");
+    divKb.id = kbGuid;
+    divKb.style.margin = "20px";
+    divKb.style.padding = "10px"
+    divKb.appendChild(document.createTextNode("群组名称：" + kbName));
+    divKb.appendChild(document.createTextNode("群组创建时间：" + new Date(parseInt(group.dtCreated)).toLocaleString()));
+    content.appendChild(divKb);
+}
+
+
+function appendKbDiv(groupKb) {
+    var bizGuid = groupKb.bizGuid;
+    var kbName = groupKb.kbName;
     var biz = document.getElementById(bizGuid);
     var divKb = document.createElement("div");
-    var kbText = document.createTextNode("群组名称：" + kbName);
-    divKb.appendChild(kbText);
+    divKb.appendChild(document.createTextNode("群组名称：" + kbName));
+    divKb.appendChild(document.createTextNode("群组创建时间：" + new Date(parseInt(groupKb.dtCreated)).toLocaleString()));
     biz.appendChild(divKb);
 }
 
 function processData() {
+    var bizArray = new Array();
     for (i = 0; i < bizList.length; i++) {
         var biz = bizList[i];
-        console.log(biz.biz_guid)
-        createBizDiv(biz.biz_guid, biz.biz_name);
+        var bizGuid = biz.biz_guid;
+        createBizDiv(biz);
+        bizArray[i] = bizGuid;
+    }
+    groupByBiz(bizArray, groupList);
+    groupByBiz(bizArray, toDoList);
+}
 
-        for (j = 0; j < groupList.length; j++) {
-            if (groupList[j].bizGuid && groupList[j].bizGuid == biz.biz_guid) {
-                console.log(groupList[j].bizGuid);
-                appendKbDiv(biz.biz_guid, groupList[j].kbName);
-            }
-        }
-        for (k = 0; k < toDoList.length; k++) {
-            if (!toDoList[k].bizGuid && toDoList[k].bizGuid == biz.biz_guid) {
-                appendKbDiv(biz.biz_guid, toDoList[k].kbName);
-            }
+function groupByBiz(bizArray, groupList) {
+    for (j = 0; j < groupList.length; j++) {
+        if (groupList[j].bizGuid && bizArray.indexOf(groupList[j].bizGuid)) {
+            appendKbDiv(groupList[j]);
+        } else {
+            createGroupDiv(groupList[j])
         }
     }
 }

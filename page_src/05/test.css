@@ -1,6 +1,26 @@
 body{
    background-size:3px;
-   background:url(background.png);
+   background: red url(background.png);
    background-repeat:no-repeat;
    padding-top:80px;
+   background-attachment: fixed;
+}
+
+#login{
+    margin:100px auto;
+    background:yellow;
+    width:400px
+}
+
+#submit{
+    padding:5px;
+    margin:5px 5px 5px 0;
+    border-radius:2px;
+}
+
+#content{
+    margin:100px 50px;
+    padding:20px;
+    background:orange;
+    display: none
 }
