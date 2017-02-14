@@ -22,8 +22,6 @@ function createGroupDiv(group) {
     var content = document.getElementById("group");
     var divKb = document.createElement("div");
     divKb.id = kbGuid;
-    divKb.style.margin = "20px";
-    divKb.style.padding = "10px"
     divKb.appendChild(document.createTextNode("群组名称：" + kbName));
     divKb.appendChild(document.createTextNode("群组创建时间：" + new Date(parseInt(group.dtCreated)).toLocaleString()));
     content.appendChild(divKb);
@@ -109,6 +107,7 @@ function getKb() {
 
 
 function login() {
+    $("#submit").attr("disabled", "disabled");
     var username = document.getElementById("user_name").value;
     if (!username) {
         alert("your name is null");
@@ -139,7 +138,7 @@ function login() {
 
         },
         error: function (data) {
-            $("#submit").attr("disabled", "disabled");
+            alert("error")
         }
     });
 }
