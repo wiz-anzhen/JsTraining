@@ -3,6 +3,7 @@ var bizList;
 var groupList;
 
 function createBizDiv(biz) {
+
     var bizGuid = biz.biz_guid;
     var bizName = biz.biz_name
     var content = document.getElementById("biz");
@@ -13,20 +14,30 @@ function createBizDiv(biz) {
 
     var textNodeDiv = document.createElement("div");
     textNodeDiv.style.fontSize = "20px";
-    textNodeDiv.style.background ="red";
     textNodeDiv.addEventListener("click", function(){
         showKb(bizGuid);
     });
-    var addAndSubDiv = document.createTextNode("+");
-    
+
+    var addAndSubDiv = document.createElement("div");
+    addAndSubDiv.style.display="inline";
+    addAndSubDiv.style.padding="6px";
+    addAndSubDiv.width="6px";
+    addAndSubDiv.style.fontSize="40px";
+    addAndSubDiv.id=bizGuid+"add_sub";
+    addAndSubDiv.appendChild(document.createTextNode("+"));
+
     textNodeDiv.appendChild(addAndSubDiv);
     textNodeDiv.appendChild(document.createTextNode("团队名称：" + bizName))
-
     divBiz.appendChild(textNodeDiv);
     content.appendChild(divBiz);
 }
 
 function showKb(className){
+    if($("#"+className+"add_sub").text() == "+"){
+        $("#"+className+"add_sub").text("-")
+    }else{
+         $("#"+className+"add_sub").text("+")
+    }
      $("."+className).toggle();
 }
 

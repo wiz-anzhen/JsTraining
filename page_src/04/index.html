@@ -1,12 +1,115 @@
-<!DOCTYPE>
-<HTML>
-    <HEAD>
-         <meta charset="utf-8">
-         <title> learn node.js</title>
-    </HEAD>
-    <BODY>
-         <script src="test4.js"></script>
-         <script src="test.js"></script>
-         <script src="../lib/jquery.min.js"></script>
-    </BODY>
-</HTML>
+<html>
+    <head>
+        <title>为知笔记</title>
+        <script src="../lib/jquery-3.1.1.js"></script>
+    </head>
+    <body id="wiz_body">
+        <div id="login_form">
+            <div>
+                <label for="name">用户名：</label>
+                <input id="name" type="text"></input>
+            </div>
+            <div>
+                <label for="pass">密  码：</label>
+                <input id="pass" type="password"></input>
+            </div>
+            <button id="login" type="button" onclick="doLogin()">登录</button>
+        </div>
+
+        
+        <script>
+            function doLogin() {
+                let inputName = $('#name');
+                if (!inputName.val()) {
+                    alert('用户名不能为空');
+                    return;
+                }
+                let inputPass = $('#pass');
+                if (!inputPass.val()) {
+                    alert('密码不能为空');
+                    return;
+                }
+                //
+                onLogin(inputName.val(), inputPass.val());
+            }
+            function onLogin(name, password) {
+                let loginBtn = $('#login');
+                loginBtn.attr('disabled', 'disabled');
+                //
+                let post_data = { 'user_id': name, 'password': password };
+                $.ajax({
+                    url: "/api/login",
+                    data: post_data,
+                    type: 'POST',
+                    dataType: 'json',
+                    async: true,
+                    success: function (data) {
+                        console.log('get login result success');
+                        onResult(data);
+                    },
+                    error: function(error) {
+                        console.log('get login result error');
+                        onLoginFinish();
+                    }
+                });
+                function onResult(data) {
+                    console.log(data);
+                    if (data.code == 200) {
+                        onSuccess(data.token);
+                    } else {
+                        alert(data.message);
+                    }
+                    onLoginFinish();
+                }
+                function onLoginFinish() {
+                    loginBtn.removeAttr('disabled');
+                }
+                function onSuccess(token) {
+                    $('#login_form').hide();
+                    initContent(token);
+                }
+                function initContent(token) {
+                    let bizs, groups;
+                    $.get(`/wizas/a/biz/user_bizs?api_version=6&token=${token}`, function(data, txtStatus, jqXHR) {
+                            if (data.return_code == 200) {
+                                bizs = data.result;//biz_guid biz_name
+                                console.log(bizs);
+                                initViews(bizs, groups);
+                            } else {
+                                console.log('get bizs failed');
+                                alert(data.return_message);
+                            }
+                        });
+                    $.get(`/wizas/a/groups?api_version=6&token=${token}`, function(data, txtStatus, jqXHR) {
+                        if (data.return_code == 200) {
+                            groups = data.group_list;//bizGuid kbName
+                            console.log(groups);
+                            initViews(bizs, groups);
+                        } else {
+                            console.log('get groups failed');
+                            alert(data.return_message);
+                        }
+                    });
+                }
+                function initViews(bizs, groups) {
+                    if (!bizs || !groups) {
+                        return;
+                    }
+                    
+                    let body = $('#wiz_body');
+                    
+                    for (let biz of bizs) {
+                        body.append(`<div class="${biz.biz_guid}"><h2>${biz.biz_name}</h2></div>`);
+                    }
+                    for (let group of groups) {
+                        console.log(`bizguid = ${group.bizGuid}, name = ${group.kbName}`);
+                        $('.' + group.bizGuid).append(`<span>${group.kbName}</span></br>`)
+                    }
+                }
+                
+                
+            }
+        </script>
+    </body>
+</html>
+Contact GitHub API Training Shop Blog About
