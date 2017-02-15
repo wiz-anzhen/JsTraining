@@ -1,0 +1,72 @@
+
+#login{
+    margin:100px auto;
+    width:300px;
+    text-align:center;
+}
+
+#submit{
+    border-radius:8px;
+    border:solid blue 2px;
+    width:100px;
+    text-align: center;
+    background: #337ab7;
+    margin-top:25px;
+}
+
+#content{
+   font:italic ;
+   display:none;
+}
+
+#biz{
+  font:italic ;
+  padding:20px;
+}
+
+.label{
+    float:left;
+    width:70px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.submit_button{
+    clear:both;
+    margin-left:70px;
+    width:100px;
+}
+
+
+
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  background-color: #67CF22;
+  display:none;
+ 
+  margin: 100px auto;
+  -webkit-animation: rotateplane 1.2s infinite ease-in-out;
+  animation: rotateplane 1.2s infinite ease-in-out;
+}
+ 
+@-webkit-keyframes rotateplane {
+  0% { -webkit-transform: perspective(120px) }
+  50% { -webkit-transform: perspective(120px) rotateY(180deg) }
+  100% { -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) }
+}
+ 
+@keyframes rotateplane {
+  0% {
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg)
+  } 50% {
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+  } 100% {
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+  }
+}
+

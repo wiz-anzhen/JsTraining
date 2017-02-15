@@ -1,0 +1,36 @@
+<!DOCTYPE>
+<HTML>
+
+<HEAD>
+    <meta charset="utf-8">
+    <title> learn node.js</title>
+    <script src="test.js"></script>
+    <script src="../lib/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="test.css">
+</HEAD>
+
+<BODY>
+    <div class="spinner" id="loading"></div>
+    <div id="login">
+        <div>
+            <div class="label"><label for="user_name">用户名:</label></div>
+
+            <div><input type="text" id="user_name" value="" /></div>
+
+        </div>
+        <br>
+        <div>
+            <div class="label"><label for="password">密&nbsp;&nbsp;&nbsp;码:</label></div>
+            <div><input type="password" id="password" value="" /></div>
+
+        </div>
+        <div class="submit_button">
+            <button type="button" id="submit" onclick="login()">
+              登陆
+            </button>
+        </div>
+    </div>
+    <div id="content">
+        <div id="biz">biz</div>
+    </div>
+</BODY>
