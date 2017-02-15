@@ -117,9 +117,9 @@ function getKb() {
 function login() {
     $("#submit").attr("disabled", "disabled");
     $("#submit").css("background", "gray");
-    $("#login").fadeOut(1);
+    $("#login").fadeOut(1000);
     $("#loading").css("display", "block");
-    setTimeout(loginAjax, 2);
+    setTimeout(loginAjax, 2000);
     function loginAjax() {
         var username = document.getElementById("user_name").value;
         if (!username) {
